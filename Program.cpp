@@ -131,13 +131,13 @@ private:
 int main()
 {
     // Create a maze with the specified dimensions
-    Maze maze(500, 500);
+    Maze maze(40, 40);
 
     // Generate the maze
     maze.Generate();
 
     // Print the maze to the console
-    // maze.Print();
+    maze.Print();
 
     // Save the maze to a file
     maze.SaveToFile("maze.txt");
