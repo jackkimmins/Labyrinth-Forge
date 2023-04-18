@@ -5,8 +5,7 @@ This project presents a C++ implementation of a random maze generator utilising 
 
 In the context of maze generation, each cell constitutes a vertex, while the walls separating the cells represent edges. Initially, every cell is an independent set. The adapted Kruskal's Algorithm for maze construction encompasses the subsequent stages:
 
-     - create a forest F (a set of trees), where each vertex in the graph is
-       a separate tree
+     - create a forest F (a set of trees), where each vertex in the graph is a separate tree
      - create a sorted set S containing all the edges in the graph
      - while S is nonempty and F is not yet spanning
     	 - remove an edge with minimum weight from S
