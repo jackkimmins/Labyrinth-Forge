@@ -93,34 +93,55 @@ public:
     // Export the generated maze to a file using RLE.
     void ExportToFile(const std::string& filename)
     {
+        // Open the output file for writing in binary mode.
         std::ofstream file(filename, std::ios::binary);
 
+        // Check if the file is open.
         if (file.is_open())
         {
+            // Calculate the row size based on the maze width.
             int row_size = width * 2 + 1;
+
+            // Iterate through the rows of the maze.
             for (int y = 0, y_max = height * 2 + 1; y < y_max; ++y)
             {
+                // Initialise the RLE encoding variables.
                 char prev = grid[y * row_size];
                 int count = 1;
+
+                // Iterate through the columns of the maze.
                 for (int x = 1, x_max = row_size; x < x_max; ++x)
                 {
+                    // Read the current character from the grid.
                     char cur = grid[y * row_size + x];
+
+                    // Check if the current character is equal to the previous character.
                     if (cur == prev) ++count;
                     else
                     {
+                        // If the count is greater than 1, write the count to the file.
                         if (count > 1) file << count;
+
+                        // Write the previous character to the file.
                         file << prev;
+
+                        // Update the RLE encoding variables.
                         prev = cur;
                         count = 1;
                     }
                 }
+
+                // Write the last run of characters to the file.
                 if (count > 1) file << count;
                 file << prev << '\n';
             }
+
+            // Close the output file.
             file.close();
         }
         else std::cerr << "Unable to open file " << filename << '\n';
     }
+
 
 private:
     // Structure to represent a maze cell with its parent and rank.
