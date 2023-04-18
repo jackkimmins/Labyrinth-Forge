@@ -90,6 +90,38 @@ public:
         else std::cerr << "Unable to open file " << filename << std::endl;
     }
 
+    // Export the generated maze to a file using RLE.
+    void ExportToFile(const std::string& filename)
+    {
+        std::ofstream file(filename, std::ios::binary);
+
+        if (file.is_open())
+        {
+            int row_size = width * 2 + 1;
+            for (int y = 0, y_max = height * 2 + 1; y < y_max; ++y)
+            {
+                char prev = grid[y * row_size];
+                int count = 1;
+                for (int x = 1, x_max = row_size; x < x_max; ++x)
+                {
+                    char cur = grid[y * row_size + x];
+                    if (cur == prev) ++count;
+                    else
+                    {
+                        if (count > 1) file << count;
+                        file << prev;
+                        prev = cur;
+                        count = 1;
+                    }
+                }
+                if (count > 1) file << count;
+                file << prev << '\n';
+            }
+            file.close();
+        }
+        else std::cerr << "Unable to open file " << filename << '\n';
+    }
+
 private:
     // Structure to represent a maze cell with its parent and rank.
     struct Cell { int parent, rank; };
@@ -131,7 +163,7 @@ private:
 int main()
 {
     // Create a maze with the specified dimensions
-    Maze maze(40, 40);
+    Maze maze(15, 15);
 
     // Generate the maze
     maze.Generate();
@@ -141,6 +173,9 @@ int main()
 
     // Save the maze to a file
     maze.SaveToFile("maze.txt");
+
+    // Export the maze to a file using RLE
+    maze.ExportToFile("maze.rle");
 
     return 0;
 }
