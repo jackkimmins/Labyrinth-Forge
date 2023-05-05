@@ -1,3 +1,4 @@
+
 # Random Maze Generation Employing an Adapted Kruskal's Algorithm in C++
 This project presents a C++ implementation of a random maze generator utilising a modified version of Kruskal's Algorithm. The program can create a maze with user-defined dimensions and provides the option to either display the generated maze in the console or save it to a file.
 
@@ -19,3 +20,8 @@ The code has been optimised for performance, permitting the expeditious generati
 To compile the project, use the following command:
 
     g++ -O3 -flto Program.cpp -o Program && ./Program
+
+## Examples
+![Small Maze](https://raw.githubusercontent.com/jackkimmins/Labyrinth-Forge/master/examples/small.png)
+
+![Medium Maze](https://raw.githubusercontent.com/jackkimmins/Labyrinth-Forge/master/examples/medium.png)
