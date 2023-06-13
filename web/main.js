@@ -89,7 +89,12 @@ document.getElementById('btnDownloadMaze').addEventListener('click', DownloadMaz
 document.getElementById('btnGitHubRepo').addEventListener('click', () => window.open('https://github.com/jackkimmins/Labyrinth-Forge', '_blank'));
 
 document.addEventListener('keydown', event => {
-    const keyMap = { 37: [-1, 0], 38: [0, -1], 39: [1, 0], 40: [0, 1] };
-    const direction = keyMap[event.keyCode];
+    if (event.key === 'Enter') {
+        const { size: mazeSize, seed: mazeSeed } = GetSizeAndSeed();
+        GenerateMaze(mazeSize, mazeSize, mazeSeed);
+    }
+
+    const keyMap = { 'ArrowLeft': [-1, 0], 'ArrowUp': [0, -1], 'ArrowRight': [1, 0], 'ArrowDown': [0, 1] };
+    const direction = keyMap[event.key];
     if (direction) MovePlayer(...direction);
 });
