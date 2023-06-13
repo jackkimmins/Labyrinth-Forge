@@ -1,6 +1,6 @@
 
-# Random Maze Generation Employing an Adapted Kruskal's Algorithm in C++
-This project presents a C++ implementation of a random maze generator utilising a modified version of Kruskal's Algorithm. The program can create a maze with user-defined dimensions and provides the option to either display the generated maze in the console or save it to a file.
+# Random Maze Generation Employing an Adapted Kruskal's Algorithm in C++ WebAssembly
+This project presents a C++ WA implementation of a random maze generator utilising a modified version of Kruskal's Algorithm. The program can create a maze with user-defined dimensions and provides the option to either display the generated maze in the console/web interface or save it to a file.
 
 [Kruskal's Algorithm](https://en.wikipedia.org/wiki/Kruskal%27s_algorithm) is prevalently employed to ascertain the [minimum spanning tree (MST)](https://en.wikipedia.org/wiki/Minimum_spanning_tree) in a connected, undirected graph. It operates by continuously selecting the smallest edge connecting two disjoint vertex sets and incorporating it into the MST. The algorithm continues until all vertices are connected or all edges have been processed.
 
@@ -16,10 +16,9 @@ My modified Kruskal's Algorithm produces a stochastic maze with a singular solut
 
 The code has been optimised for performance, permitting the expeditious generation of sizable mazes (2000+) within a matter of seconds.
 
-## Compilation
-To compile the project, use the following command:
-
-    g++ -O3 -flto Program.cpp -o Program && ./Program
+## Demo Site
+Please view demonstration site:
+[https://labyrinth-forge.appserver.uk/](https://labyrinth-forge.appserver.uk/)
 
 ## Examples
 ![Small Maze](https://raw.githubusercontent.com/jackkimmins/Labyrinth-Forge/master/examples/small.png)
