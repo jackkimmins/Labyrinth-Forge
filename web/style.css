@@ -4,10 +4,12 @@
     box-sizing: border-box;
 }
 
+html, body {
+    height: 100%;
+}
+
 body {
     background-color: #4b4b4b;
-    height: 100vh;
-    width: 100vw;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -16,7 +18,8 @@ body {
 }
 
 body > main {
-    width: 40vw;
+    width: 80vh;
+    max-width: 95vw;
     background-color: black;
     border: 1px solid white;
 }
@@ -25,27 +28,51 @@ footer {
     border-top: 1px solid white;
     width: 100%;
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
     align-items: center;
+    justify-content: center;
     z-index: 1;
-    padding: 1vw;
-    background-color: rgba(24, 31, 128, 0.788);
-    font-size: 0.7vw;
+    padding: 1.5em;
+    /* background-color: rgba(13, 17, 75, 0.788); */
+    font-size: 0.9em;
+}
+
+footer .title {
+    font-size: 1.8em;
+}
+
+footer h1 {
+    margin-top: -10px;
 }
 
 footer button, footer input {
-    padding: 0.08vw;
-    margin-bottom: 0.08vw;
-    font-size: 0.6vw;
+    padding: 5px;
+    margin-bottom: 5px;
+    font-size: 0.8em;
+}
+
+footer button {
+    /* border: 1px solid white;
+    background-color: black; */
+    color: black;
+    cursor: pointer;
 }
 
 footer input {
     border: none;
+    width: 100%;
+}
+
+footer .inputs {
+    width: 100%;
 }
 
 footer ul {
     list-style: none;
     padding-left: 0;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
 }
 
 footer ul button {
@@ -81,8 +108,16 @@ footer ul button {
     background-color: red;
 }
 
-@media (max-width: 1200px) {
-    body > main {
-        width: 70vw;
+#grid > .player {
+    background-color: blue;
+}
+
+@media (min-width: 768px) {
+    footer {
+        flex-direction: row;
+        justify-content: space-between;
+    }
+    footer .inputs, footer ul {
+        width: auto;
     }
 }

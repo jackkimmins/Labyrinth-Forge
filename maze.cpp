@@ -131,6 +131,35 @@ public:
         return mazeStr;
     }
 
+    // Convert the generated maze to a string.
+    std::string MazeToHTMLString()
+    {
+        std::string mazeStr;
+        for (int y = 0; y < height * 2 + 1; y++)
+        {
+            for (int x = 0; x < width * 2 + 1; x++) 
+            {
+                switch(grid[y * (width * 2 + 1) + x]) {
+                    case '#':
+                        mazeStr += "<div class=\"cell wall\"></div>";
+                        break;
+                    case '-':
+                        mazeStr += "<div class=\"cell path\"></div>";
+                        break;
+                    case 'S':
+                        mazeStr += "<div class=\"cell start\"></div>";
+                        break;
+                    case 'E':
+                        mazeStr += "<div class=\"cell end\"></div>";
+                        break;
+                    default:
+                        mazeStr += "<div class=\"cell unknown\"></div>";
+                }
+            }
+        }
+        return mazeStr;
+    }
+
     // Save the generated maze to a file.
     void SaveToFile(const std::string& filename, const std::string& content)
     {
@@ -156,6 +185,7 @@ EMSCRIPTEN_BINDINGS(maze_class) {
     .function("Generate", &Maze::Generate)
     .function("Print", &Maze::Print)
     .function("MazeToString", &Maze::MazeToString)
+    .function("MazeToHTMLString", &Maze::MazeToHTMLString)
     ;
 }
 
@@ -165,7 +195,7 @@ void LocalDemo()
     Maze maze;
 
     // Generate the maze
-    maze.Generate(15, 15);
+    maze.Generate(10, 10);
 
     // Print the maze to the console
     maze.Print();
