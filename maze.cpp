@@ -51,8 +51,11 @@ public:
     Maze() = default;
 
     // Generate a random maze using Kruskal's Algorithm.
-    void Generate(int w, int h)
+    void Generate(int w, int h, int seed = -1)
     {
+        // If the seed is -1, use the current time as the seed.
+        if (seed == -1) seed = std::time(0);
+
         // Set width and height
         width = w;
         height = h;
@@ -80,7 +83,7 @@ public:
             }
 
         // Shuffle the walls randomly.
-        std::mt19937 rng(std::time(0));
+        std::mt19937 rng(seed);
         std::shuffle(walls.begin(), walls.end(), rng);
 
         // Iterate through the shuffled walls.

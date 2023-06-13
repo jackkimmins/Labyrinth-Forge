@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Labyrinth Forge: Maze Generator</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <main>
+        <div id="grid"></div>
+
+        <footer>
+            <div class="title">
+                <h1>Labyrinth Forge: Maze Generator</h1>
+                <p>Jack Kimmins</p>
+            </div>
+
+            <div class="controls">
+                <div class="inputs">
+                    <input type="number" id="mazeSeed" placeholder="Seed">
+                    <input type="number" id="mazeSize" placeholder="Size" min="5" max="50">
+                </div>
+
+                <ul>
+                    <li><button id="btnGenMaze" title="Generate Maze"><i class="fa-solid fa-repeat"></i> Generate Maze</button></li>
+                    <li><button><i class="fa-solid fa-download"></i> Download Maze</button></li>
+                    <li><button><i class="fa-brands fa-github"></i> GitHub</button></li>
+                </ul>
+            </div>
+    
+            
+        </footer>
+    </main>
+
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
+    <script src="wasm.js"></script>
+    <!-- <script src="./main.js"></script> -->
+    <script>
+
+        let maze = null;
+
+        // Generate a new maze using #grid - which is a display: grid element
+        function GenerateMaze(mazeWidth, mazeHeight, mazeSeed = -1)
+        {
+            if (maze == null)
+            {
+                console.log("Maze not initialized");
+                return;
+            }
+
+            // Clear the grid
+            $("#grid").empty();
+
+            // Generate the maze
+            maze.Generate(mazeWidth, mazeHeight, mazeSeed);
+
+            // Get the maze data
+            let mazeData = maze.MazeToString();
+            console.log(mazeData);
+
+            // Set the grid template columns and rows
+            let gridWidth = mazeWidth * 2 + 1;
+            let gridHeight = mazeHeight * 2 + 1;
+
+            $("#grid").css("grid-template-columns", `repeat(${gridWidth}, 1fr)`);
+            $("#grid").css("grid-template-rows", `repeat(${gridHeight}, 1fr)`);
+
+            // Add each tile to the grid
+            for(let i = 0; i < mazeData.length; i++)
+            {
+                let tileType;
+                switch(mazeData[i]) {
+                    case '#':
+                        tileType = 'wall';
+                        break;
+                    case '-':
+                        tileType = 'path';
+                        break;
+                    case 'S':
+                        tileType = 'start';
+                        break;
+                    case 'E':
+                        tileType = 'end';
+                        break;
+                    case '\n':
+                        continue; // Ignore new lines
+                    default:
+                        tileType = 'unknown';
+                }
+
+                let tile = $('<div class="cell">').addClass(tileType);
+                $("#grid").append(tile);
+            }
+        }
+
+        // Initialize the maze
+        Module.onRuntimeInitialized = async _ => {
+            maze = new Module.Maze();
+
+            GenerateMaze(15, 15, 1);
+
+            $('#btnGenMaze').click(function() {
+                let mazeSeed = $('#mazeSeed').val();
+                let mazeSize = $('#mazeSize').val();
+
+                if (mazeSeed == "") mazeSeed = -1;
+                if (mazeSize == "") mazeSize = 15;
+
+                //If the seed is text, hash it to get a number
+                if (isNaN(mazeSeed)) mazeSeed = mazeSeed.hashCode();
+
+                //Convert to int
+                mazeSeed = parseInt(mazeSeed);
+                mazeSize = parseInt(mazeSize);
+
+                GenerateMaze(mazeSize, mazeSize, mazeSeed);
+            });
+        };
+
+        
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,88 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #4b4b4b;
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: white;
+}
+
+body > main {
+    width: 40vw;
+    background-color: black;
+    border: 1px solid white;
+}
+
+footer {
+    border-top: 1px solid white;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 1;
+    padding: 1vw;
+    background-color: rgba(24, 31, 128, 0.788);
+    font-size: 0.7vw;
+}
+
+footer button, footer input {
+    padding: 0.08vw;
+    margin-bottom: 0.08vw;
+    font-size: 0.6vw;
+}
+
+footer input {
+    border: none;
+}
+
+footer ul {
+    list-style: none;
+    padding-left: 0;
+}
+
+footer ul button {
+    width: 100%;
+    border: none;
+}
+
+#grid {
+    display: grid;
+    height: 100%;
+    width: 100%;
+    max-height: 100%;
+    max-width: 100%;
+    aspect-ratio: 1 / 1;
+    justify-content: center;
+    align-content: center;
+}
+
+#grid > .cell {
+    width: 1fr;
+    height: 1fr;
+}
+
+#grid > .wall {
+    background-color: black;
+}
+
+#grid > .path, #grid > .unknown {
+    background-color: white
+}
+
+#grid > .start, #grid > .end {
+    background-color: red;
+}
+
+@media (max-width: 1200px) {
+    body > main {
+        width: 70vw;
+    }
+}
